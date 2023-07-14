@@ -23,13 +23,13 @@ func Test_HashPassword(t *testing.T) {
 
 func Test_ValidatePassword(t *testing.T) {
 	hashed := "$2a$10$gEH4ShlEMylHTjYuSU7NReC0OIXdFKBFfIDPzFNYreXUFOazKTN1O"
-	
+
 	cond, err := ValidatePassword(&hashed, "password")
-	
+
 	if err != nil {
 		t.Errorf("Error comparing password: %v", err)
 	}
-	
+
 	if cond != true {
 		t.Errorf("Error comparing password: %v", err)
 	}

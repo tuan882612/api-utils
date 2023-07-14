@@ -1,6 +1,7 @@
 package errorutils
 
 type ErrBadRequest struct{ Msg string }
+
 func (e *ErrBadRequest) Error() string { return e.Msg }
 
 func NewErrBadRequest(msg string) *ErrBadRequest {
@@ -8,6 +9,7 @@ func NewErrBadRequest(msg string) *ErrBadRequest {
 }
 
 type ErrNotFound struct{ Msg string }
+
 func (e *ErrNotFound) Error() string { return e.Msg }
 
 func NewErrNotFound(msg string) *ErrNotFound {
@@ -15,6 +17,7 @@ func NewErrNotFound(msg string) *ErrNotFound {
 }
 
 type ErrConflict struct{ Msg string }
+
 func (e *ErrConflict) Error() string { return e.Msg }
 
 func NewErrConflict(msg string) *ErrConflict {
@@ -22,6 +25,7 @@ func NewErrConflict(msg string) *ErrConflict {
 }
 
 type ErrForbidden struct{ Msg string }
+
 func (e *ErrForbidden) Error() string { return e.Msg }
 
 func NewErrForbidden(msg string) *ErrForbidden {
@@ -29,6 +33,7 @@ func NewErrForbidden(msg string) *ErrForbidden {
 }
 
 type ErrUnauthorized struct{ Msg string }
+
 func (e *ErrUnauthorized) Error() string { return e.Msg }
 
 func NewErrUnauthorized(msg string) *ErrUnauthorized {
