@@ -1,4 +1,4 @@
-package errorutils
+package apiutils
 
 type ErrBadRequest struct{ Msg string }
 
