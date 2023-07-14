@@ -6,13 +6,18 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func HashPassword(password string) (string, error) {
+func HashPassword(password string) (*string, error) {
 	if len(password) == 0 {
-		return "", errors.New("password is empty")
+		return nil, errors.New("password is empty")
 	}
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	return string(hash), err
+	if err != nil {
+		return nil, err
+	}
+
+	strHash := string(hash)
+	return &strHash, err
 }
 
 func ValidatePassword(hash *string, password string) (bool, error) {

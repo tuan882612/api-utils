@@ -10,7 +10,7 @@ func Test_HashPassword(t *testing.T) {
 		t.Errorf("Error hashing password: %v", err)
 	}
 
-	cond, err := ValidatePassword(&hashedPassword, password)
+	cond, err := ValidatePassword(hashedPassword, password)
 
 	if err != nil {
 		t.Errorf("Error comparing password: %v", err)
