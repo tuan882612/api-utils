@@ -14,7 +14,7 @@ func Test_Jsonify(t *testing.T) {
 		"key": "value",
 	}
 
-	if err := Jsonify(w, value); err != nil {
+	if err := jsonify(w, value); err != nil {
 		t.Errorf("Jsonify returned an error: %v", err)
 	}
 

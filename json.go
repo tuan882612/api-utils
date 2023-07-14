@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Jsonify(w http.ResponseWriter, value interface{}) error {
+func jsonify(w http.ResponseWriter, value interface{}) error {
 	w.Header().Set("Content-Type", "application/json")
 
 	if value == nil {

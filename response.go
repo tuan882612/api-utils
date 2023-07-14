@@ -21,5 +21,10 @@ func NewRes(code int, message string, body interface{}) *Response {
 func WrapRes(w http.ResponseWriter, value *Response) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(value.Code)
-	Jsonify(w, value)
+
+	if err := jsonify(w, value); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"code": 500, "message": "Internal Server Error"}`))
+		return
+	}
 }
