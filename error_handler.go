@@ -1,32 +1,35 @@
 package apiutils
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 func HandleHttpErrors(w http.ResponseWriter, err error) {
+	var code int
+	var msg string
 	switch err.(type) {
-	case *ErrBadRequest:
-		body := NewRes(http.StatusBadRequest, err.Error(), nil)
-		WrapRes(w, body)
-		return
-	case *ErrNotFound:
-		body := NewRes(http.StatusNotFound, err.Error(), nil)
-		WrapRes(w, body)
-		return
-	case *ErrConflict:
-		body := NewRes(http.StatusConflict, err.Error(), nil)
-		WrapRes(w, body)
-		return
-	case *ErrForbidden:
-		body := NewRes(http.StatusForbidden, err.Error(), nil)
-		WrapRes(w, body)
-		return
-	case *ErrUnauthorized:
-		body := NewRes(http.StatusUnauthorized, err.Error(), nil)
-		WrapRes(w, body)
-		return
+	case ErrBadRequest:
+		code = http.StatusBadRequest
+		msg = err.Error()
+	case ErrNotFound:
+		code = http.StatusNotFound
+		msg = err.Error()
+	case ErrConflict:
+		code = http.StatusConflict
+		msg = err.Error()
+	case ErrForbidden:
+		code = http.StatusForbidden
+		msg = err.Error()
+	case ErrUnauthorized:
+		code = http.StatusUnauthorized
+		msg = err.Error()
 	default:
-		body := NewRes(http.StatusInternalServerError, err.Error(), nil)
-		WrapRes(w, body)
-		return
+		log.Println(err)
+		code = http.StatusInternalServerError
+		msg = err.Error()
 	}
+
+	body := NewRes(code, msg, nil)
+	WrapRes(w, body)
 }
