@@ -30,6 +30,6 @@ func HandleHttpErrors(w http.ResponseWriter, err error) {
 		msg = err.Error()
 	}
 
-	body := NewRes(code, msg, nil)
-	WrapRes(w, body)
+	resp := NewRes(code, msg, nil)
+	resp.SendRes(w)
 }
