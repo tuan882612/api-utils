@@ -10,29 +10,19 @@ func Test_HashPassword(t *testing.T) {
 		t.Errorf("Error hashing password: %v", err)
 	}
 
-	cond, err := ValidatePassword(hashedPassword, password)
-
-	if err != nil {
-		t.Errorf("Error comparing password: %v", err)
+	if err = ValidatePassword(hashedPassword, password); err != nil {
+		t.Errorf("Error validating password: %v", err)
 	}
 
-	if cond != true {
-		t.Errorf("Error comparing password: %v", err)
-	}
 }
 
 func Test_ValidatePassword(t *testing.T) {
 	hashed := "$2a$10$gEH4ShlEMylHTjYuSU7NReC0OIXdFKBFfIDPzFNYreXUFOazKTN1O"
 
-	cond, err := ValidatePassword(&hashed, "password")
-
-	if err != nil {
-		t.Errorf("Error comparing password: %v", err)
+	if err := ValidatePassword(hashed, "password"); err != nil {
+		t.Errorf("Error validating password: %v", err)
 	}
 
-	if cond != true {
-		t.Errorf("Error comparing password: %v", err)
-	}
 }
 
 func Test_HashPassword_ErrorHandling(t *testing.T) {
@@ -45,15 +35,13 @@ func Test_HashPassword_ErrorHandling(t *testing.T) {
 }
 
 func Test_ValidatePassword_ErrorHandling(t *testing.T) {
-	var hash *string
+	var hash string
 
-	_, err := ValidatePassword(hash, "password")
-	if err == nil {
+	if err := ValidatePassword(hash, "password"); err == nil {
 		t.Errorf("Should return an error: %v", err)
 	}
 
-	_, err = ValidatePassword(hash, "")
-	if err == nil {
+	if err := ValidatePassword(hash, ""); err == nil {
 		t.Errorf("Should return an error: %v", err)
 	}
 }
