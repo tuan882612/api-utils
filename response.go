@@ -42,12 +42,10 @@ func (r *Response) SendRes(w http.ResponseWriter, contentType ...string) {
 	w.WriteHeader(r.Code)
 
 	// writing response body
-	if r.Body != nil {
-		if err := json.NewEncoder(w).Encode(r); err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(`{"code": 500, "message": "Internal Server Error", "body": null}`))
-			return
-		}
+	if err := json.NewEncoder(w).Encode(r); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"code": 500, "message": "Internal Server Error", "body": null}`))
+		return
 	}
 }
 
