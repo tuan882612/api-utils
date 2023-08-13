@@ -36,7 +36,7 @@ func (r *Response) SendRes(w http.ResponseWriter, contentType ...string) {
 
 	// setting request id
 	reqId := fmt.Sprintf("%s-%s", time.Now().Format("20060102"), uuid.New().String())
-	w.Header().Set("X-Response-Id", reqId)
+	w.Header().Set("X-Request-Id", reqId)
 
 	// setting response code
 	w.WriteHeader(r.Code)
