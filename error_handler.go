@@ -1,9 +1,6 @@
 package apiutils
 
-import (
-	"log"
-	"net/http"
-)
+import "net/http"
 
 func HandleHttpErrors(w http.ResponseWriter, err error) {
 	var code int
@@ -25,7 +22,6 @@ func HandleHttpErrors(w http.ResponseWriter, err error) {
 		code = http.StatusUnauthorized
 		msg = err.Error()
 	default:
-		log.Println(err)
 		code = http.StatusInternalServerError
 		msg = err.Error()
 	}
