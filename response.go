@@ -2,12 +2,8 @@ package apiutils
 
 import (
 	"encoding/json"
-	"fmt"
 	"mime"
 	"net/http"
-	"time"
-
-	"github.com/google/uuid"
 )
 
 type Response struct {
@@ -33,10 +29,6 @@ func (r *Response) SendRes(w http.ResponseWriter, contentType ...string) {
 		}
 	}
 	w.Header().Set("Content-Type", contentTypeValue)
-
-	// setting request id
-	reqId := fmt.Sprintf("%s-%s", time.Now().Format("20060102"), uuid.New().String())
-	w.Header().Set("X-Request-Id", reqId)
 
 	// setting response code
 	w.WriteHeader(r.Code)
