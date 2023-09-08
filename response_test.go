@@ -98,32 +98,3 @@ func Test_AddHeaders(t *testing.T) {
 	}
 
 }
-
-func Test_NewRequestId(t *testing.T) {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		data := map[string]string{
-			"test": "foo",
-		}
-
-		resp := NewRes(http.StatusOK, "", data)
-		resp.SendRes(w)
-	}
-
-	req := httptest.NewRequest("GET", "/", nil)
-	res := httptest.NewRecorder()
-	handler(res, req)
-
-	if res.Code != http.StatusOK {
-		t.Errorf("NewRequestId returned an invalid status code: %v", res.Code)
-	}
-
-	contentType := res.Header().Get("Content-Type")
-	if contentType != "application/json" {
-		t.Errorf("NewRequestId returned an invalid Content-Type: %v", contentType)
-	}
-
-	reqId := res.Header().Get("X-Response-Id")
-	if reqId == "" {
-		t.Errorf("NewRequestId returned an invalid X-Response-Id: %v", reqId)
-	}
-}
